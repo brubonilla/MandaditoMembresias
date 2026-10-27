@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandadito | Membresías</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nar: #FF6A00;
+      --nar-osc: #C95100;
+      --nar-luz: #FFF3E9;
+      --neg: #111114;
+      --carbon: #1C1C21;
+      --grafito: #2E2E36;
+      --hueso: #F7F7F8;
+      --blanco: #FFFFFF;
+      --gris: #5F5F66;
+      --linea: #E4E3E1;
+      --ok: #1B9E5A;
+    }
+
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+    body {
+      font-family: "DM Sans", -apple-system, system-ui, "Segoe UI", sans-serif;
+      background: var(--hueso);
+      color: var(--neg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    /* selector Pedir / Ofrecer: solo CSS, con radios ocultos */
+    .modo {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+
+    /* ---------- Encabezado ---------- */
+    header {
+      background: var(--neg);
+      color: var(--blanco);
+      text-align: center;
+      padding: 40px 20px 84px;
+    }
+
+
+    .marca {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+    }
+    .marca span { color: var(--nar); }
+    .marca svg { width: 34px; height: auto; fill: var(--nar); }
+
+
+    .eyebrow {
+      margin-top: 34px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9A9AA6;
+    }
+
+
+    header h1 {
+      margin: 10px auto 0;
+      max-width: 680px;
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.032em;
+    }
+    header h1 em { font-style: normal; color: var(--nar); }
+
+
+    header .sub {
+      margin: 14px auto 0;
+      max-width: 520px;
+      color: #B5B5BF;
+      font-size: 1.02rem;
+    }
+
+
+    .switch {
+      display: inline-flex;
+      gap: 2px;
+      margin-top: 28px;
+      padding: 3px;
+      background: var(--grafito);
+      border-radius: 999px;
+    }
+    .switch label {
+      cursor: pointer;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #A9A9B4;
+      transition: background-color 0.16s, color 0.16s;
+    }
+    #m-pedir:checked ~ header label[for="m-pedir"],
+    #m-ofrecer:checked ~ header label[for="m-ofrecer"] {
+      background: var(--nar);
+      color: var(--blanco);
+      font-weight: 700;
+    }
+    #m-pedir:focus-visible ~ header label[for="m-pedir"],
+    #m-ofrecer:focus-visible ~ header label[for="m-ofrecer"] {
+      outline: 2px solid var(--blanco);
+      outline-offset: 2px;
+    }
+
+
+    #m-pedir:checked ~ main .ofrecer { display: none; }
+    #m-ofrecer:checked ~ main .pedir { display: none; }
+
+
+    /* ---------- Planes ---------- */
+    main {
+      max-width: 1080px;
+      margin: -52px auto 0;
+      padding: 0 20px 56px;
+    }
+
+
+    .planes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+
+    .plan {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--blanco);
+      border: 1px solid var(--linea);
+      border-radius: 20px;
+      padding: 28px 24px 24px;
+    }
+
+
+    .plan .lineas { width: 40px; height: auto; fill: var(--nar); margin-bottom: 14px; }
+
+
+    .plan h2 {
+      font-size: 1.35rem;
+      letter-spacing: -0.028em;
+    }
+
+
+    .plan .lema {
+      margin-top: 2px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--nar-osc);
+    }
+
+
+    .plan .para {
+      margin-top: 12px;
+      min-height: 3em;
+      color: var(--gris);
+      font-size: 0.95rem;
+    }
+
+
+    .precio {
+      margin-top: 18px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+    }
+    .precio small {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: var(--gris);
+    }
+
+
+    .plan ul {
+      list-style: none;
+      margin: 20px 0 26px;
+      flex-grow: 1;
+    }
+    .plan li {
+      position: relative;
+      padding: 9px 0 9px 26px;
+      border-top: 1px solid var(--linea);
+      font-size: 0.94rem;
+    }
+    .plan li::before {
+      content: "✓";
+      position: absolute;
+      left: 4px;
+      top: 9px;
+      font-weight: 700;
+      color: var(--nar);
+    }
+    .plan li b { font-weight: 700; }
+
+
+    .boton {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.97rem;
+      letter-spacing: -0.01em;
+      background: transparent;
+      color: var(--neg);
+      box-shadow: inset 0 0 0 1px var(--linea);
+      transition: background-color 0.15s, opacity 0.15s;
+    }
+    .boton:hover { background: var(--hueso); }
+    .boton:active { opacity: 0.7; }
+    .boton:focus-visible { outline: 2px solid var(--neg); outline-offset: 2px; }
+
+
+    /* Plus: el elegido */
+    .plan.plus {
+      border: 2px solid var(--nar);
+      box-shadow: 0 14px 40px rgba(255, 106, 0, 0.14);
+    }
+    .plan.plus .boton { background: var(--nar); color: var(--blanco); box-shadow: none; }
+    .plan.plus .boton:hover { background: var(--nar-osc); }
+
+
+    .etiqueta {
+      position: absolute;
+      top: -13px;
+      left: 24px;
+      background: var(--nar);
+      color: var(--blanco);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 999px;
+    }
+
+
+    /* Full: versión oscura, como la barra superior de la app */
+    .plan.full {
+      background: var(--neg);
+      border-color: var(--neg);
+      color: var(--blanco);
+    }
+    .plan.full .lema { color: var(--nar); }
+    .plan.full .para,
+    .plan.full .precio small { color: #B5B5BF; }
+    .plan.full li { border-top-color: var(--grafito); }
+    .plan.full .boton { background: var(--blanco); color: var(--neg); box-shadow: none; }
+    .plan.full .boton:hover { background: #E9E9EC; }
+    .plan.full .boton:focus-visible { outline-color: var(--blanco); }
+
+
+    /* ---------- En todos los planes ---------- */
+    .todos {
+      margin-top: 44px;
+      background: var(--blanco);
+      border: 1px solid var(--linea);
+      border-radius: 20px;
+      padding: 28px 24px;
+    }
+    .todos h3 {
+      font-size: 1.1rem;
+      letter-spacing: -0.024em;
+      text-align: center;
+    }
+    .todos .grilla {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 22px;
+      margin-top: 22px;
+    }
+    .todos .item b { display: block; font-size: 0.95rem; }
+    .todos .item span { display: block; margin-top: 3px; color: var(--gris); font-size: 0.88rem; }
+    .todos .punto {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--nar);
+      margin-bottom: 10px;
+    }
+
+
+    .nota {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--gris);
+      font-size: 0.86rem;
+    }
+
+
+    footer {
+      background: var(--neg);
+      color: #9A9AA6;
+      text-align: center;
+      padding: 26px 20px;
+      font-size: 0.86rem;
+    }
+    footer strong { color: var(--blanco); }
+    footer span { color: var(--nar); }
+
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <input type="radio" name="modo" id="m-pedir" class="modo" checked aria-label="Quiero pedir">
+  <input type="radio" name="modo" id="m-ofrecer" class="modo" aria-label="Quiero ofrecer">
+
+
+  <header>
+    <div class="marca">
+      <svg viewBox="0 0 80 46" aria-hidden="true">
+        <path d="M0 10 60 0 60 6Z"/><path d="M18 26 78 16 78 22Z"/><path d="M4 42 64 32 64 38Z"/>
+      </svg>
+      Mandad<span>i</span>to
+    </div>
+
+
+    <p class="eyebrow">Pedí una mano · Ofrecé la tuya</p>
+    <h1>Elegí tu ritmo en <em>Mandadito</em></h1>
+    <p class="sub">La misma plataforma para todos, con más alcance a medida que subís de plan. Mirá qué incluye cada uno según lo que quieras hacer.</p>
+
+
+    <div class="switch" role="group" aria-label="Elegí qué querés hacer">
+      <label for="m-pedir">Quiero pedir</label>
+      <label for="m-ofrecer">Quiero ofrecer</label>
+    </div>
+  </header>
+
+
+  <main>
+    <section class="planes">
+
+
+      <!-- BÁSICA -->
+      <article class="plan">
+        <svg class="lineas" viewBox="0 0 80 46" aria-hidden="true"><path d="M18 26 78 16 78 22Z"/></svg>
+        <h2>Básica</h2>
+        <p class="lema">Primeros pasos</p>
+        <p class="para pedir">Para resolver lo tuyo sin pagar nada.</p>
+        <p class="para ofrecer">Para empezar a ofrecer tu trabajo sin pagar nada.</p>
+        <div class="precio">Gratis</div>
+
+
+        <ul class="pedir">
+          <li>3 tareas activas a la vez</li>
+          <li>Pago protegido por <b>Mercado pago</b></li>
+          <li>Todas las categorías: compras, trámites, hogar y oficios</li>
+          <li>Sin prioridad en publicaciones</li>
+        </ul>
+        <ul class="ofrecer">
+          <li><b>15 postulaciones</b> por mes</li>
+          <li>Acceso a todas las categorias</li>
+          <li>Perfil público con tus calificaciones y tareas realizadas</li>
+          <li>Pago protegido por <b>Mercado pago</b></li>
+        </ul>
+
+
+        <a href="#" class="boton">Seguir gratis</a>
+      </article>
+
+
+      <!-- PLUS -->
+      <article class="plan plus">
+        <span class="etiqueta">Más elegido</span>
+        <svg class="lineas" viewBox="0 0 80 46" aria-hidden="true"><path d="M0 10 60 0 60 6Z"/><path d="M18 26 78 16 78 22Z"/></svg>
+        <h2>Plus</h2>
+        <p class="lema">Ritmo constante</p>
+        <p class="para pedir">Para quienes piden seguido y quieren más alcance.</p>
+        <p class="para ofrecer">Para ganar visibilidad y que te elijan más.</p>
+        <div class="precio">$U 500 <small>/ mes</small></div>
+
+
+        <ul class="pedir">
+          <li><b>6 tareas activas</b> a la vez</li>
+          <li>Mayor visibilidad para tus <b>postulaciones</b></li>
+          <li><b>3 tareas destacadas</b> por mes, primeras en el listado</li>
+          <li>Todo lo incluido en gratis</li>
+        </ul>
+        <ul class="ofrecer">
+          <li><b>31 postulaciones</b> por mes</li>
+          <li>Sello de <b>emprendedor verificado</b></li>
+          <li>Perfil destacado en las búsquedas de los clientes</li>
+          <li>Todo lo incluido en gratis</li>
+        </ul>
+
+
+        <a href="#" class="boton">Elegir Plus</a>
+      </article>
+
+
+      <!-- FULL -->
+      <article class="plan full">
+        <svg class="lineas" viewBox="0 0 80 46" aria-hidden="true"><path d="M0 10 60 0 60 6Z"/><path d="M18 26 78 16 78 22Z"/><path d="M4 42 64 32 64 38Z"/></svg>
+        <h2>Full</h2>
+        <p class="lema">A toda velocidad</p>
+        <p class="para pedir">Sin límites y con prioridad en todo.</p>
+        <p class="para ofrecer">Máxima visibilidad en toda la zona.</p>
+        <div class="precio">$U 1.000 <small>/ mes</small></div>
+
+
+        <ul class="pedir">
+          <li><b>Tareas activas sin límite</b></li>
+          <li><b>Tareas destacadas sin límite</b></li>
+          <li>Prioridad en el <b>listado</b></li>
+          <li>Atencion prioritaria de disputas</li>
+          <li>Línea directa con el equipo de soporte</li>
+        </ul>
+        <ul class="ofrecer">
+          <li><b>Postulaciones sin límite</b></li>
+          <li><b>Maxima Prioridad en las búsquedas</b></li>
+          <li><b>Primero en el listado</b> de tu zona</li>
+          <li>Alertas inmediatas de tareas nuevas en tus categorías</li>
+          <li><b>Sello Full</b> de emprendedor destacado</li>
+          <li><b>Revisión prioritaria</b> de disputas </li>
+        </ul>
+
+
+        <a href="#" class="boton">Elegir Full</a>
+      </article>
+
+
+    </section>
+
+
+    <section class="todos">
+      <h3>En todos los planes, incluido el gratis</h3>
+      <div class="grilla">
+        <div class="item">
+          <div class="punto"></div>
+          <b>Pago en garantía</b>
+          <span>El dinero queda retenido en Mercado Pago hasta que el cliente confirma que el trabajo está hecho.</span>
+        </div>
+        <div class="item">
+          <div class="punto"></div>
+          <b>Cerca de vos</b>
+          <span>Una tarea aparece solo si entra en tu radio y en el de la otra persona.</span>
+        </div>
+        <div class="item">
+          <div class="punto"></div>
+          <b>Chat y calificaciones</b>
+          <span>Coordiná los detalles y construí tu reputación con cada tarea.</span>
+        </div>
+        <div class="item">
+          <div class="punto"></div>
+          <b>Disputas con evidencia</b>
+          <span>Si algo sale mal, el equipo revisa fotos y mensajes antes de liberar o devolver el pago.</span>
+        </div>
+      </div>
+    </section>
+
+
+    <p class="nota">Precios en pesos uruguayos por mes. Zona de cobertura: Maldonado y alrededores. Cambiá o cancelá tu plan cuando quieras.</p>
+  </main>
+
+
+  <footer>
+    <strong>Mandad<span>i</span>to</strong> · Pedí una mano. Ofrecé la tuya. &copy; 2026
+  </footer>
+
+
+</body>
+</html>
