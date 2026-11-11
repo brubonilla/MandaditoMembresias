@@ -47,11 +47,31 @@
 
     /* ---------- Encabezado ---------- */
     header {
+      position: relative;
       background: var(--neg);
       color: var(--blanco);
       text-align: center;
       padding: 40px 20px 84px;
     }
+
+    .volver {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--nar);
+      color: var(--blanco);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.16s;
+    }
+    .volver:hover { background: var(--nar-osc); }
+    .volver:focus-visible { outline: 2px solid var(--blanco); outline-offset: 3px; }
 
 
     .marca {
@@ -328,6 +348,11 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
     }
+
+    @media (max-width: 560px) {
+      header { padding-top: 76px; }
+      .volver { top: 16px; left: 16px; min-height: 36px; padding: 8px 12px; font-size: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -338,6 +363,7 @@
 
 
   <header>
+    <a class="volver" href="https://brubonilla.github.io/Mandadito/">Volver a mandadito</a>
     <div class="marca">
       <svg viewBox="0 0 80 46" aria-hidden="true">
         <path d="M0 10 60 0 60 6Z"/><path d="M18 26 78 16 78 22Z"/><path d="M4 42 64 32 64 38Z"/>
@@ -404,7 +430,7 @@
           <li>Todo lo incluido en el plan básico.</li>
         </ul>
         <ul class="ofrecer">
-          <li>Capacidad de postularte y realizar un máximo de <b>15 tareas</b> por mes.</li>
+          <li>Capacidad de postularte y realizar un máximo de <b>20 tareas</b> por mes.</li>
           <li>Tu perfil gana un sello de <b>emprendedor verificado.</b></li>
           <li>Tu Perfil aparece destacado entre las búsquedas de los clientes.</li>
           <li>Todo lo incluido en el plan básico.</li>
@@ -470,7 +496,7 @@
     </section>
 
 
-    <p class="nota">Precios en pesos uruguayos por mes. Zona de cobertura: Maldonado y alrededores. Cambiá o cancelá tu plan cuando quieras. (Extendible a futuro)</p>
+    <p class="nota">Precios en pesos uruguayos por mes. Zona de cobertura: Maldonado y alrededores. Cambiá o cancelá tu plan cuando quieras. (Próximamente disponible en todo el pais.)</p>
   </main>
 
 
